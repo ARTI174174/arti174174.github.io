@@ -559,40 +559,57 @@
   #contacts { background: var(--dark); }
 
   .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
-  .contact-left h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 34px;
-    color: var(--white);
-    margin-bottom: 20px;
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 600px;
   }
-  .contact-left p {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--text-muted);
-    margin-bottom: 40px;
-  }
-  .contact-info { display: flex; flex-direction: column; gap: 18px; }
   .contact-row {
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: 14px;
+    gap: 22px;
+    font-size: 20px;
+    font-weight: 400;
     color: var(--text);
+    text-decoration: none;
+    padding: 22px 28px;
+    border: 1px solid rgba(200,169,110,0.12);
+    background: var(--dark2);
+    transition: border-color .3s, transform .25s;
+  }
+  .contact-row:hover {
+    border-color: rgba(200,169,110,0.5);
+    transform: translateX(6px);
+    color: var(--white);
   }
   .contact-row .icon {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(200,169,110,0.3);
+    width: 48px; height: 48px;
+    border: 1px solid rgba(200,169,110,0.35);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
   .contact-row .icon svg { fill: var(--gold); }
+  .contact-row .clabel {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .contact-row .cval {
+    font-size: 18px;
+    color: var(--white);
+  }
 
   .contact-form { display: flex; flex-direction: column; gap: 20px; }
   .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -990,7 +1007,7 @@
         <!-- ВКонтакте -->
         <a class="contact-row" href="https://vk.com/ziganurov" target="_blank">
           <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M21.547 7h-3.29a.743.743 0 0 0-.655.392s-1.312 2.416-1.734 3.23C14.734 12.813 14 12.126 14 11.11V7.603A1.104 1.104 0 0 0 12.896 6.5h-2.474a1.982 1.982 0 0 0-1.75.813s1.255-.204 1.255 1.49c0 .42.022 1.626.04 2.64a.73.73 0 0 1-1.272.503 21.54 21.54 0 0 1-2.498-4.543.693.693 0 0 0-.63-.403h-2.99a.508.508 0 0 0-.48.685C3.005 10.175 6.918 18 11.38 18h1.878a.742.742 0 0 0 .742-.742v-1.135a.73.73 0 0 1 1.23-.53l2.247 2.112a1.1 1.1 0 0 0 .735.295h2.intervening.5a1.135 1.135 0 0 0 .807-1.913l-2.876-2.8a.72.72 0 0 1-.033-.98l2.856-3.39A.736.736 0 0 0 21.547 7z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.408 4 7.935c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.948c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .779.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.491-.085.745-.576.745z"/></svg>
           </div>
           <div>
             <span class="clabel">ВКонтакте</span>
@@ -1021,13 +1038,13 @@
         </a>
 
         <!-- Почта -->
-        <a class="contact-row" href="mailto:artemziganurov@gmail.com">
+        <a class="contact-row" href="/cdn-cgi/l/email-protection#47263533222a3d2e2026293235283107202a262e2b6924282a">
           <div class="icon">
             <svg width="22" height="22" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </div>
           <div>
             <span class="clabel">Почта</span>
-            <span class="cval">artemziganurov@gmail.com</span>
+            <span class="cval"><span class="__cf_email__" data-cfemail="6e0f1c1a0b031407090f001b1c01182e09030f0702400d0103">[email&#160;protected]</span></span>
           </div>
         </a>
 
@@ -1041,7 +1058,7 @@
   <div class="footer-copy">© 2026 · Видеограф · Челябинск</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   /* ── Portfolio data ── */
   /* ═══════════════════════════════════════════════════════
      ПОРТФОЛИО
@@ -1162,6 +1179,12 @@
         vk:    'https://vk.com/video_ext.php?oid=-187862294&id=456239053&hash=abc5d0c28da17bd4', // ← видео 9
         thumb: '16.jpg',  // ← превью 9
       },
+      {
+        label: 'завод - Магнезит',
+        cls:   'thumb-biz',
+        vk:    'https://vkvideo.ru/video_ext.php?oid=-9009998&id=456239048&hash=13d23e350804e771', // ← видео 9
+        thumb: '17.jpg',  // ← превью 9
+      },
     ],
   };
 
@@ -1216,12 +1239,6 @@
   /* ── Pre-fill contact form ── */
   function scrollToContact(pkg) {
     document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
-    const sel = document.getElementById('f-type');
-    if (pkg.startsWith('Свадьба')) sel.value = 'Свадьба';
-    else if (pkg.startsWith('Мероприятие')) sel.value = 'Мероприятие / Форум';
-    else sel.value = 'Бизнес-ролик / Реклама';
-    const msg = document.getElementById('f-msg');
-    msg.value = 'Интересует пакет: ' + pkg;
   }
 
   /* ── Form ── */
@@ -1265,7 +1282,7 @@
       ✕ &nbsp;ЗАКРЫТЬ
     </button>
     <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
-      <iframe id="videoFrame" src="" frameborder="0"
+            <iframe id="videoFrame" src="" frameborder="0"
         allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
         style="position:absolute;inset:0;width:100%;height:100%;background:#000;"></iframe>
     </div>
