@@ -502,27 +502,71 @@
   }
 
   /* ── REVIEWS ── */
-  #reviews { background: var(--dark2); }
-
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+  #reviews {
+    background: var(--dark2);
+    overflow: hidden;
+    padding: 100px 0 100px; /* убираем боковые отступы секции */
   }
+
+  #reviews .section-inner {
+    padding: 0 80px;
+    margin-bottom: 60px;
+  }
+
+  /* обёртка — на всю ширину экрана */
+  .reviews-slider-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* плавное затухание — выползают из темноты */
+  .reviews-slider-wrap::before,
+  .reviews-slider-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 280px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .reviews-slider-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--dark2) 0%, rgba(22,22,22,0.6) 60%, transparent 100%);
+  }
+  .reviews-slider-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--dark2) 0%, rgba(22,22,22,0.6) 60%, transparent 100%);
+  }
+
+  /* лента */
+  .reviews-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    padding: 8px 0 8px;
+    cursor: grab;
+    user-select: none;
+  }
+  .reviews-track:active { cursor: grabbing; }
+
   .review-card {
     background: var(--dark3);
-    border: 1px solid rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.1);
     padding: 36px 32px;
     position: relative;
     transition: border-color .3s;
+    width: 360px;
+    flex-shrink: 0;
+    border-radius: 2px;
   }
-  .review-card:hover { border-color: rgba(200,169,110,0.25); }
+  .review-card:hover { border-color: rgba(200,169,110,0.3); }
   .review-card::before {
     content: '"';
     font-family: 'Playfair Display', serif;
     font-size: 80px;
     color: var(--gold);
-    opacity: 0.15;
+    opacity: 0.12;
     position: absolute;
     top: 10px; left: 20px;
     line-height: 1;
@@ -958,40 +1002,316 @@
   <div class="section-inner">
     <p class="section-sub">Что говорят клиенты</p>
     <h2 class="section-title">Отзывы</h2>
-    <div class="reviews-grid">
+  </div>
+
+  <div class="reviews-slider-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+
+      <!-- ═══════════════════════════════════════
+           ОТЗЫВЫ — просто добавляй новые .review-card
+           в этот список, слайдер подхватит автоматически
+      ═══════════════════════════════════════ -->
+
       <div class="review-card">
         <div class="stars">★★★★★</div>
-        <div class="review-text">Артем снял нашу свадьбу так, что каждый раз пересматриваем со слезами на глазах. Он поймал каждую эмоцию, каждый момент. Ролик - настоящее произведение искусства.</div>
+        <div class="review-text">Здравствуйте!Артем,спасибо вам
+за замечательную работу, творческий подход и терпение очень все
+понравилось, так интересно придумали</div>
         <div class="review-author">
           <div class="review-avatar">А</div>
           <div>
-            <div class="review-name">Анна и Дмитрий</div>
-            <div class="review-event">Свадьба · июнь 2025</div>
+            <div class="review-name">Аня</div>
+            <div class="review-event">Выпускной</div>
           </div>
         </div>
       </div>
+
       <div class="review-card">
         <div class="stars">★★★★★</div>
-        <div class="review-text">Снимали корпоративный форум на 500 человек. Артем отработал профессионально - многокамерная съёмка, интервью, красивый монтаж. Всё сдано в срок, всё чётко.</div>
+        <div class="review-text">Спасибо большое!!! Это очень круто мы в восторге</div>
         <div class="review-author">
           <div class="review-avatar">М</div>
           <div>
-            <div class="review-name">Михаил Соловьёв</div>
-            <div class="review-event">Корпоратив · ноябрь 2025</div>
+            <div class="review-name">Анна</div>
+            <div class="review-event">Свадьба</div>
           </div>
         </div>
       </div>
+
       <div class="review-card">
         <div class="stars">★★★★★</div>
-        <div class="review-text">Рекламный ролик для нашего ресторана собрал 200 тысяч просмотров за неделю! Артем предложил крутую концепцию, организовал съёмку и сдал результат раньше срока.</div>
+        <div class="review-text">Ой это великолепно!
+Спасибо вам огромное, безумно красиво</div>
         <div class="review-author">
           <div class="review-avatar">Е</div>
           <div>
-            <div class="review-name">Екатерина Ли</div>
-            <div class="review-event">Бизнес-ролик · март 2026</div>
+            <div class="review-name">Яна</div>
+            <div class="review-event">Свадьба</div>
           </div>
         </div>
       </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Артем, в общем мы посмотрели
+фильм. Это превзошло наши
+ожидания, как-будто снова
+пережили этот день и столько
+эмоций получилось передать
+через камеру. Ты настоящий
+профессионал своего дела,
+надеюсь еще увидимся
+Обязательно будем всем
+рекомендовать тебя. Очень
+сильная работа получилась,
+спасибо огромное!!!!! Очень рады,
+что именно к тебе обратились, все
+так, как мы хотели!</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Анатолий</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Видео и фото шикарные, спасибо</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Олеся </div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Ой это великолепно!
+Спасибо вам огромное, безумно красиво</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Яна</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Спасибо большое!
+Вся в слезах
+Спасибо, что подарил возможность прожить этот день еще раз
+Получилось очень круто!</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Ксения</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Посмотрели видео
+Оно просто идеальное прям до
+слез. Спасибо большое. Рады, что пригласили именно вас пересматриваем снова и снова
+</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Екатерина</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Спасибо большое, мне очень понравилось)</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Юлия</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Посмотрели видео. Спасибо тебе огромное за эмоции, воспоминания</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Оля</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+		
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Блин, всё круто, всё классно, снято суперски, слов нет описать эту красоту, спасибо большое</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Игорь</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+		
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Только просмотрели, нам очень понравилось, спасибо большое за такую красоту, ты лучший, видео просто супер</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Ринат</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+		
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Артем! Спасибо Вам огромное за ваш труд!
+Очень классные получились видео!
+Мы в восторге!
+Смотрели с замиранием!
+Несмотря на погодные условия, у вас получилось создать красивые видео на память !
+Спасибо еще раз за оказанную помощь во время банкета, очень выручили нас!
+От всей души Вас благодарим!
+Вы мастер своего дела!
+
+</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Алина</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+		
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Только просмотрели, нам очень понравилось, спасибо большое за такую красоту, ты лучший, видео просто супер</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Ринат</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Артём, хотим выразить большую благодарность за такие крутые видеоролики
+Очень здорово, что из такого не совсем большого разнообразия наших кадров (т.к. не удалось нам выделить больше времени) у вас получилось создать эту красоту
+</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Дарья</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Артем, фильм шикарный!мы вам очень благодарны за такую шикарную работу! Так держать) спасибо что вы были с нами и оставили нам такие воспоминания
+</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Анна</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Мы посмотреееели!
+Красотаааааа!
+Спасибо за работу!</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Екатерина</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Добрый вечер! Посмотрели фильм , получилось очень классно !
+Спасибо Вам большое, вы замечательный человек и профессионал своего дела!</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Валерия</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Спасибо вам большое!
+Очень все круто!
+Спасибо за внесенные коррективы
+Будем всем советовать</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Виктория</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+				
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Артём, спасибо тебе огромное!!!
+Ты реально волшебник!!! Клип шикааааарный!!
+Ты огонь вообще!
+Приехал и сделал нам всем такой сюрприз на экране!</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Ольга</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+						
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Лучший видеограф смотрим
+клип и наслаждаемся.Спасибо за классный материал
+Фильм смотреть трепетно,я слишком сентиментальна</div>
+        <div class="review-author">
+          <div class="review-avatar">Е</div>
+          <div>
+            <div class="review-name">Мария</div>
+            <div class="review-event">Свадьба</div>
+          </div>
+        </div>
+      </div>
+		
+      <!-- сюда добавляй новые отзывы по образцу выше -->
+
     </div>
   </div>
 </section>
@@ -1252,6 +1572,78 @@
       btn.style.background = '';
     }, 3000);
   }
+
+  /* ── Слайдер отзывов ── */
+  (function() {
+    const track = document.getElementById('reviewsTrack');
+    if (!track) return;
+
+    // Клонируем карточки для бесконечного эффекта
+    const cards = Array.from(track.children);
+    cards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+    const totalW   = () => track.scrollWidth / 2; // ширина одного набора
+    let pos        = 0;       // текущая позиция px
+    let speed      = 0.5;     // px за кадр
+    let paused     = false;
+    let pauseTimer = null;
+    let raf        = null;
+
+    // drag
+    let isDragging = false;
+    let dragStart  = 0;
+    let posStart   = 0;
+
+    function pauseFor(ms) {
+      paused = true;
+      clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => { paused = false; }, ms);
+    }
+
+    function tick() {
+      if (!paused) {
+        pos += speed;
+        // бесконечная петля — когда прошли один набор, прыгаем назад
+        if (pos >= totalW()) pos -= totalW();
+        track.style.transform = `translateX(${-pos}px)`;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    // mouse drag
+    track.addEventListener('mousedown', e => {
+      isDragging = true;
+      dragStart  = e.clientX;
+      posStart   = pos;
+      pauseFor(10000);
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const delta = dragStart - e.clientX;
+      pos = posStart + delta;
+      // не выходим за пределы
+      if (pos < 0) pos += totalW();
+      if (pos >= totalW()) pos -= totalW();
+      track.style.transform = `translateX(${-pos}px)`;
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    // touch drag
+    track.addEventListener('touchstart', e => {
+      dragStart = e.touches[0].clientX;
+      posStart  = pos;
+      pauseFor(10000);
+    }, { passive: true });
+    track.addEventListener('touchmove', e => {
+      const delta = dragStart - e.touches[0].clientX;
+      pos = posStart + delta;
+      if (pos < 0) pos += totalW();
+      if (pos >= totalW()) pos -= totalW();
+      track.style.transform = `translateX(${-pos}px)`;
+    }, { passive: true });
+
+    raf = requestAnimationFrame(tick);
+  })();
 
   /* ── Scroll reveal ── */
   const observer = new IntersectionObserver((entries) => {
