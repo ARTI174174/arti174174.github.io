@@ -521,23 +521,16 @@
   }
 
   /* плавное затухание — выползают из темноты */
-  .reviews-slider-wrap::before,
-  .reviews-slider-wrap::after {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 280px;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .reviews-slider-wrap::before {
-    left: 0;
-    background: linear-gradient(to right, var(--dark2) 0%, rgba(22,22,22,0.6) 60%, transparent 100%);
-  }
-  .reviews-slider-wrap::after {
-    right: 0;
-    background: linear-gradient(to left, var(--dark2) 0%, rgba(22,22,22,0.6) 60%, transparent 100%);
-  }
+.reviews-slider-wrap::before,
+.reviews-slider-wrap::after {
+  width: 80px; /* Узкие маски */
+}
+.reviews-slider-wrap::before {
+  background: linear-gradient(to right, var(--dark2) 0%, transparent 100%);
+}
+.reviews-slider-wrap::after {
+  background: linear-gradient(to left, var(--dark2) 0%, transparent 100%);
+}
 
   /* лента */
   .reviews-track {
